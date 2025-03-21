@@ -1,89 +1,57 @@
-import { createContext, useEffect, useState } from "react";
-import axios from "axios";
-import { toast } from "react-toastify";
+import { createContext, useEffect, useState, useMemo } from "react";
+import doctorsData from "../assets/doc"; // Import local JSON data
 
 export const AppContext = createContext();
 
-const AppContextProvider = (props) => {
+const AppContextProvider = ({ children }) => {
   const currencySymbol = "$";
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   const [doctors, setDoctors] = useState([]);
-  const [token, setToken] = useState(
-    localStorage.getItem("token") ? localStorage.getItem("token") : false
-  );
+  const [token, setToken] = useState(localStorage.getItem("token") || false);
   const [userData, setUserData] = useState(false);
 
-  const getDoctorsData = async () => {
-    try {
-      console.log("Backend URL:", backendUrl);
-      if (!backendUrl) {
-        console.error("Error: Backend URL is not set.");
-        toast.error("Backend URL is missing!");
-        return;
-      }
-
-      console.log("Fetching doctors from:", `${backendUrl}/api/doctor/list`);
-      const { data } = await axios.get(`${backendUrl}/api/doctor/list`);
-
-      console.log("API Response:", data);
-      if (data.success) {
-        setDoctors(data.doctors);
-        console.log("Doctors updated:", data.doctors);
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.error("Error fetching doctors:", error);
-      toast.error("Failed to fetch doctors.");
+  // Function to load doctors data from JSON
+  const getDoctorsData = () => {
+    if (doctorsData && Array.isArray(doctorsData)) {
+      setDoctors(doctorsData); // ✅ Directly setting doctors list
+    } else {
+      console.error("Failed to load doctors: Invalid data format");
     }
   };
 
-  const loadUserProfileData = async () => {
-    try {
-      console.log("Fetching user profile...");
-      const { data } = await axios.get(`${backendUrl}/api/user/get-profile`, {
-        headers: { token },
-      });
-
-      console.log("User Profile Response:", data);
-      if (data.success) {
-        setUserData(data.user);
-      } else {
-        toast.error(data.message);
-      }
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-      toast.error("Failed to fetch user profile.");
-    }
-  };
-
-  const value = {
-    doctors,
-    getDoctorsData,
-    currencySymbol,
-    token,
-    setToken,
-    backendUrl,
-    userData,
-    setUserData,
-    loadUserProfileData,
-  };
-
+  // Load doctors data on component mount
   useEffect(() => {
     getDoctorsData();
   }, []);
 
+  // Simulate user data based on token status
   useEffect(() => {
     if (token) {
-      loadUserProfileData();
+      setUserData({
+        id: "123",
+        name: "John Doe",
+        email: "johndoe@example.com",
+      });
     } else {
       setUserData(false);
     }
   }, [token]);
 
+  const contextValue = useMemo(
+    () => ({
+      doctors,
+      getDoctorsData,
+      currencySymbol,
+      token,
+      setToken,
+      userData,
+      setUserData,
+    }),
+    [doctors, token, userData]
+  );
+
   return (
-    <AppContext.Provider value={value}>{props.children}</AppContext.Provider>
+    <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
   );
 };
 

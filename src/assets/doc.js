@@ -1,3 +1,4 @@
+
 import appointment_img from './appointment_img.png'
 import header_img from './header_img.png'
 import group_profiles from './group_profiles.png'
@@ -38,54 +39,8 @@ import Neurologist from './Neurologist.svg'
 import Pediatricians from './Pediatricians.svg'
 
 
-export const assets = {
-    appointment_img,
-    header_img,
-    group_profiles,
-    logo,
-    chats_icon,
-    verified_icon,
-    info_icon,
-    profile_pic,
-    arrow_icon,
-    contact_image,
-    about_image,
-    menu_icon,
-    cross_icon,
-    dropdown_icon,
-    upload_icon,
-    stripe_logo,
-    razorpay_logo
-}
 
-export const specialityData = [
-    {
-        speciality: 'General physician',
-        image: General_physician
-    },
-    {
-        speciality: 'Gynecologist',
-        image: Gynecologist
-    },
-    {
-        speciality: 'Dermatologist',
-        image: Dermatologist
-    },
-    {
-        speciality: 'Pediatricians',
-        image: Pediatricians
-    },
-    {
-        speciality: 'Neurologist',
-        image: Neurologist
-    },
-    {
-        speciality: 'Gastroenterologist',
-        image: Gastroenterologist
-    },
-]
-
-export const doctors = [
+const doctors = [
     {
         _id: 'doc1',
         name: 'Dr. Richard James',
@@ -298,3 +253,4 @@ export const doctors = [
     },
 ]
 
+export default doctors
