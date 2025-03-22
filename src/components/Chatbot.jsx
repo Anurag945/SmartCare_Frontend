@@ -58,7 +58,7 @@ const Chatbot = () => {
         {openChat ? <IoClose size={24} /> : <IoChatbubbleEllipses size={24} />}
       </button>
       {openChat && (
-        <div className="absolute bottom-16 right-0 bg-white shadow-lg rounded-lg border border-gray-300 w-80 h-96 flex flex-col">
+        <div className="absolute bottom-16 right-0 bg-white shadow-lg rounded-lg border border-gray-300 w-80 max-h-[75vh] flex flex-col">
           <div className="bg-blue-600 text-white p-3 rounded-t-lg flex justify-between items-center">
             <span>Chat with us</span>
           </div>
@@ -107,5 +107,6 @@ const Chatbot = () => {
     </div>
   );
 };
+
 
 export default Chatbot;
