@@ -62,7 +62,7 @@ const Doctors = () => {
               onClick={() => navigate(`/appointment/${item._id}`)}
               className="border border-blue-200 rounded-xl shadow-lg overflow-hidden cursor-pointer hover:scale-105 transition-all duration-300 bg-white"
             >
-              <img className="w-full h-48 object-cover bg-blue-50" src={item.image} alt={item.name} />
+              <img className="w-full h-48 object-cover bg-blue-100" src={item.image} alt={item.name} />
               <div className="p-4">
                 <div className={`flex items-center gap-2 text-sm ${item.available ? "text-green-500" : "text-gray-500"}`}>
                   <span className={`w-2 h-2 ${item.available ? "bg-green-500" : "bg-gray-500"} rounded-full`} />

@@ -25,7 +25,7 @@ const TopDoctors = () => {
             key={index}
           >
             {/* Image with Proper Sizing */}
-            <img className=" bg-blue-50" src={item.image} alt="" />
+            <img className="bg-blue-100" src={item.image} alt="" />
             
             {/* Doctor Details */}
             <div className="p-4">
