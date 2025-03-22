@@ -35,7 +35,7 @@ const Chatbot = () => {
     setInput("");
     setIsTyping(true);
     try {
-      const response = await axios.post("http://localhost:5000/chat", { message: userMessage });
+      const response = await axios.post("https://smart-care-backend.vercel.app/chat", { message: userMessage });
       setMessages((prev) => [...prev, { sender: "bot", text: response.data.reply, time: new Date().toLocaleTimeString() }]);
     } catch {
       setMessages((prev) => [...prev, { sender: "bot", text: "Sorry, I couldn't process your request.", time: new Date().toLocaleTimeString() }]);
